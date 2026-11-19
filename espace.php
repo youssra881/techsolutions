@@ -1,10 +1,6 @@
 <?php
 session_start();
-
-if (!isset($_SESSION["id"])) {
-    header("Location: pages/compte/connexion.php");
-    exit;
-}
+require "inc/verif-connecte.php";
 ?>
 <!DOCTYPE html>
 <html lang="fr">

@@ -1,16 +1,6 @@
 <?php
 session_start();
-
-if (!isset($_SESSION["id"])) {
-    header("Location: pages/compte/connexion.php");
-    exit;
-}
-
-if ($_SESSION["role"] != "admin") {
-    header("Location: espace.php");
-    exit;
-}
-
+require "inc/verif-admin.php";
 require "inc/bdd.php";
 
 $requete = $pdo->query("SELECT id, prenom, nom, service, role FROM utilisateurs ORDER BY nom");
@@ -53,10 +43,9 @@ $nombreAdministrateurs = $pdo->query("SELECT COUNT(*) AS total FROM utilisateurs
         <td><?php echo htmlspecialchars($u["service"]); ?></td>
         <td><?php echo htmlspecialchars($u["role"]); ?></td>
         <td>
-          <form action="supprimer.php" method="post">
-            <input type="hidden" name="id" value="<?php echo (int) $u["id"]; ?>">
-            <button type="submit" class="bouton-supprimer">Supprimer</button>
-          </form>
+          <?php if ((int) $u["id"] != (int) $_SESSION["id"]) { ?>
+          <a class="bouton-supprimer" href="confirmer.php?id=<?php echo (int) $u["id"]; ?>">Supprimer</a>
+          <?php } ?>
         </td>
       </tr>
       <?php } ?>

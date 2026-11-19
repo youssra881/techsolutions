@@ -1,30 +1,213 @@
-TP 11
+RÉPONSES TECHSOLUTIONS - BTS SIO
 
-1. Erreurs provoquées :
-   - [1049] Base de données inconnue : dbname est mal écrit ou la base techsolutions n'existe pas.
-   - [1045] Accès refusé pour l'utilisateur root : le mot de passe MySQL est incorrect.
-   - [2002] Connexion impossible : MySQL n'est pas démarré ou le serveur est indisponible.
+J'ai terminé les travaux PHP et SQL des TPs 10 à 13 à partir des consignes fournies.
+Les mots de passe sont conservés sous forme d'empreinte et ne sont jamais affichés.
 
-2. Dans foreach ($utilisateurs as $u), $u contient un compte complet au premier tour, puis le compte suivant au tour suivant. Le nombre de tours est décidé par le nombre de lignes renvoyées dans $utilisateurs.
 
-3. Le code source obtenu par le navigateur ne contient pas foreach : PHP a exécuté la boucle côté serveur pour produire les lignes <tr> finales.
+TP 10 - LA BASE DE DONNÉES
 
-4. La colonne mot_de_passe n'est pas demandée afin de ne pas afficher ou manipuler inutilement une donnée sensible.
+Base créée : techsolutions
+Interclassement : utf8mb4_general_ci
+Table créée : utilisateurs
+Nombre de comptes de départ : 8
+Nombre d'administrateurs : 1
 
-TP 12
+Requêtes demandées :
 
-1. Avec GET, identifiant et mot de passe apparaissent dans la barre d'adresse. C'est dangereux : ils peuvent être conservés dans l'historique, les favoris ou les journaux du serveur.
+1. Toutes les colonnes :
+SELECT * FROM utilisateurs;
+Résultat : 8 lignes.
 
-2. Sans name="motdepasse", PHP produit une erreur indiquant que la clé motdepasse est absente de $_POST, car seul un champ avec name est envoyé.
+2. Prénom et nom :
+SELECT prenom, nom FROM utilisateurs;
+Résultat : 8 lignes.
 
-3. La comparaison directe au mot de passe ne fonctionne pas : le mot enregistré dans la base est une empreinte créée par password_hash, pas le mot de passe en clair.
+3. Les salariés du service Technique :
+SELECT prenom, nom FROM utilisateurs WHERE service = 'Technique';
+Résultat : 3 lignes.
 
-4. L'identifiant JMOREAU est accepté dans le même test que jmoreau si la colonne utilise un interclassement _ci : la recherche est insensible à la casse.
+4. Comptes triés par nom :
+SELECT id, prenom, nom FROM utilisateurs ORDER BY nom;
+Résultat : 8 lignes.
 
-TP 13
+5. Compte kbenali :
+SELECT * FROM utilisateurs WHERE identifiant = 'kbenali';
+Résultat : 1 ligne.
 
-1. Le cookie de session contient l'identifiant du ticket de session PHP, pas le prénom ni les données personnelles de l'utilisateur.
+6. Personnel trié par service puis par nom :
+SELECT prenom, nom, service FROM utilisateurs ORDER BY service, nom;
+Résultat : 8 lignes. Julie Moreau est la première.
 
-2. Le exit arrête immédiatement le script après la redirection. Sans exit, le reste de la page protégée pourrait être exécuté et envoyé au navigateur.
+7. Comptes qui ne sont pas administrateurs :
+SELECT prenom, nom FROM utilisateurs WHERE role != 'admin';
+Résultat : 7 lignes.
 
-3. Le lien visible pour l'administrateur améliore l'interface, mais ne protège pas la page : il faut aussi vérifier le rôle dans utilisateurs.php sur le serveur.
+8. Personnel du Commercial trié par prénom :
+SELECT prenom, nom FROM utilisateurs WHERE service = 'Commercial' ORDER BY prenom;
+Résultat : 2 lignes.
+
+Requêtes plus fines :
+
+9. Services Technique et Commercial :
+SELECT prenom, nom, service FROM utilisateurs
+WHERE service IN ('Technique', 'Commercial')
+ORDER BY nom;
+Résultat : 5 lignes.
+
+10. Technique avec id supérieur à 4 :
+SELECT prenom, nom FROM utilisateurs
+WHERE service = 'Technique' AND id > 4;
+Résultat : 2 lignes.
+
+11. Noms commençant par B ou D :
+SELECT prenom, nom FROM utilisateurs
+WHERE nom LIKE 'B%' OR nom LIKE 'D%';
+Résultat : 2 lignes.
+
+12. Prénoms commençant par C ou finissant par a :
+SELECT prenom FROM utilisateurs
+WHERE prenom LIKE 'C%' OR prenom LIKE '%a';
+Résultat : 3 lignes.
+
+13. Noms de Z à A :
+SELECT nom FROM utilisateurs ORDER BY nom DESC;
+Résultat : 8 lignes.
+
+14. Nombre de salariés du Technique :
+SELECT COUNT(*) AS nombre_technique
+FROM utilisateurs
+WHERE service = 'Technique';
+Résultat : 1 ligne contenant 3.
+
+Questions TP 10 :
+
+1. AUTO_INCREMENT attribue automatiquement un numéro unique à chaque nouvelle ligne.
+Sans cette option, il faudrait fournir soi-même l'identifiant id, avec le risque d'oublier un numéro ou d'utiliser un numéro déjà pris.
+
+2. Julie Moreau et Karim Benali utilisent le même mot de passe, mais leurs empreintes sont différentes.
+C'est normal : password_hash ajoute une donnée aléatoire appelée sel. Deux mots de passe identiques peuvent donc produire deux empreintes différentes.
+
+3. Emma Lambert n'a pas reçu l'identifiant 6 après son départ. On ne peut pas prévoir ce résultat pour un nouvel ajout : il faut vérifier la valeur réelle créée par phpMyAdmin.
+
+4. DELETE FROM utilisateurs; supprimerait toutes les lignes de la table utilisateurs.
+Pour réparer les dégâts, il faut exécuter le script de remise à zéro du TP 10 afin de recréer les 8 comptes de départ.
+
+Règles importantes :
+- UNIQUE sur identifiant : deux salariés ne peuvent pas avoir le même identifiant.
+- NOT NULL : les champs concernés ne peuvent pas rester vide.
+- DELETE doit toujours avoir un WHERE pour éviter de supprimer toutes les lignes.
+
+
+TP 11 - PHP LIT LA BASE
+
+inc/bdd.php contient la connexion PDO à la base techsolutions.
+La page utilisateurs.php lit les comptes avec une requête PDO et les affiche dans un tableau.
+La liste est triée par nom.
+La page entreprise.php lit maintenant l'équipe dans la base.
+La page services.php affiche les techniciens lus dans la base.
+La page annuaire.php trie le personnel par service puis par nom.
+
+Questions TP 11 :
+
+1. [2002] : MySQL n'est pas démarré.
+[1049] : la base existe pas ou son nom est mal écrit.
+[1045] : le mot de passe ou l'utilisateur root est incorrect.
+
+2. Dans foreach, $u contient une ligne complète du tableau au premier tour, puis la ligne suivante au tour suivant.
+Le nombre de tours dépend du nombre de lignes renvoyées par $utilisateurs.
+
+3. Le code source affiché par le navigateur contient les lignes <tr> déjà produites par PHP.
+Le mot foreach n'apparaît pas, car la boucle a été exécutée sur le serveur avant l'envoi de la page.
+
+4. La requête ne demande pas mot_de_passe afin de ne pas récupérer et afficher cette donnée sensible inutilement.
+
+
+TP 12 - CONNEXION
+
+Le formulaire envoie les données en POST à verifier.php.
+PHP lit les champs avec $_POST.
+La recherche utilise une requête préparée :
+SELECT * FROM utilisateurs WHERE identifiant = ?
+Le mot de passe est vérifié avec password_verify().
+
+Tableau des tests :
+
+1. mdurand / Admin2026 : Bienvenue Martin Durand, puis redirection vers Mon espace.
+2. jmoreau / Salarie2026 : Bienvenue Julie Moreau, puis redirection vers Mon espace.
+3. jmoreau / salarie2026 : Identifiant ou mot de passe incorrect.
+4. jmoreau / Admin2026 : Identifiant ou mot de passe incorrect.
+5. jules / Salarie2026 : Identifiant ou mot de passe incorrect.
+6. JMOREAU / Salarie2026 : fonctionne si l'interclassement est _ci, car la recherche est insensible à la casse.
+
+Questions TP 12 :
+
+1. Avec GET, l'identifiant et le mot de passe apparaissent dans la barre d'adresse.
+Ce n'est pas acceptable pour une connexion : ces données peuvent rester dans l'historique et les journaux.
+
+2. Sans name="motdepasse", PHP ne reçoit pas la valeur du champ et affiche une erreur indiquant que la clé motdepasse manque dans $_POST.
+Le navigateur n'envoie que les champs qui possèdent un attribut name.
+
+3. Impossible d'utiliser == avec une empreinte : mot_de_passe contient le résultat de password_hash, pas le mot de passe en clair.
+Il faut utiliser password_verify($motdepasse, $empreinte).
+
+4. JMOREAU est accepté si le interclassement de la base est insensible à la casse.
+La comparaison exacte du mot de passe reste sensible aux majuscules.
+
+Sécurité SQL :
+Une requête préparée empêche une attaque comme ' OR '1'='1.
+Le texte saisi est envoyé séparément du modèle SQL grâce à ? et execute().
+Avec une requête SQL construite par concaténation, le texte de l'attaque pourrait modifier la condition SQL.
+
+
+TP 13 - SESSIONS ET ADMINISTRATION
+
+Après une connexion réussie, les informations utiles sont enregistrées dans $_SESSION :
+id, prenom, nom, service et role.
+espace.php affiche Mon espace et protège l'accès aux personnes non connectées.
+deconnexion.php détruit la session.
+
+Tableau de recette :
+
+1. Sans connexion, ouvrir espace.php : redirection vers la page de connexion.
+2. Sans connexion, ouvrir utilisateurs.php : redirection vers la page de connexion.
+3. Mauvais mot de passe : Identifiant ou mot de passe incorrect.
+4. jmoreau / Salarie2026 : Mon espace, Bonjour Julie Moreau, aucun lien Gérer les utilisateurs.
+5. Julie connectée ouvre utilisateurs.php : redirection vers espace.php.
+6. Julie se déconnecte puis ouvre espace.php : redirection vers la connexion.
+7. Martin se connecte : Mon espace avec Gérer les utilisateurs.
+8. Martin ouvre Gérer les utilisateurs : liste des 8 comptes.
+
+Gestion des comptes :
+- supprimer.php et ajouter.php sont protégés côté serveur.
+- Un administrateur ne peut pas supprimer son propre compte.
+- confirmer.php demande une confirmation avant une suppression.
+- creer.php range le mot de passe sous forme d'empreinte.
+- Un identifiant déjà pris est refusé.
+
+Questions TP 13 :
+
+1. Le cookie de localhost contient surtout l'identifiant de la session PHP.
+Il ne contient pas directement le prénom. Le prénom est gardé côté serveur dans $_SESSION.
+
+2. Sans exit après header(), le script pourrait continuer à produire du HTML malgré la redirection.
+exit arrête immédiatement l'exécution et évite qu'une page protégée soit affichée.
+
+3. Masquer un lien est une règle d'affichage seulement.
+La protection doit exister dans utilisateurs.php, supprimer.php, ajouter.php et creer.php.
+
+4. La protection est répétée dans les pages qui agissent, car un utilisateur peut taper directement l'adresse ou envoyer le formulaire sans passer par le bouton.
+
+5. creer.php range une empreinte avec password_hash.
+Si le mot de passe était rangé en clair, une fuite de base révélerait tous les mots de passe.
+À la connexion, password_verify ne pourrait pas fonctionner correctement avec le mot de passe clair.
+
+
+ÉTAT FINAL
+
+- Base techsolutions créée et remise aux 8 comptes de départ.
+- Interclassement utf8mb4_general_ci.
+- Export SQL enregistré dans sql/techsolutions.sql.
+- Connexion, espace salarié, déconnexion et protections administrateur terminés.
+- Gestion de la liste, ajout, confirmation et suppression des comptes terminés.
+- Pages d'essai supprimées.
+- Travail publié sur GitHub.
