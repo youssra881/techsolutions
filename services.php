@@ -14,7 +14,8 @@
     <a href="services.php">Services</a>
     <a href="pages/informations/actualites.html">Actualités</a>
     <a href="pages/informations/contact.php">Contact</a>
-    <a href="pages/compte/connexion.html">Connexion</a>
+    <a href="entreprise.php">Entreprise</a>
+    <a href="pages/compte/connexion.php">Connexion</a>
   </div>
   <div class="entete">
     <h1>Nos services</h1>
@@ -33,6 +34,12 @@
       <h2>Support client</h2>
       <p>Nous répondons aux demandes d’assistance et aidons les clients à résoudre leurs problèmes informatiques.</p>
     </div>
+    <h2>Nos techniciens</h2>
+    <ul>
+      <?php foreach ($techniciens as $technicien) { ?>
+      <li><?php echo htmlspecialchars($technicien["prenom"] . " " . $technicien["nom"]); ?></li>
+      <?php } ?>
+    </ul>
   </div>
   <div class="pied">
     <p>© 2026 TechSolutions ·
@@ -41,3 +48,7 @@
   </div>
 </body>
 </html>
+<?php
+require "inc/bdd.php";
+$techniciens = $pdo->query("SELECT prenom, nom FROM utilisateurs WHERE service = 'Technique' ORDER BY nom")->fetchAll();
+?>

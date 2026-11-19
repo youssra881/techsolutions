@@ -92,3 +92,65 @@ form .bouton { color: white; background: #7048e8; }
   background: white;
   text-align: center;
 }
+
+.formulaire {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 10px 20px;
+  border: 1px solid #c5ccd3;
+  background: white;
+}
+
+.formulaire input,
+.formulaire select {
+  width: 300px;
+  max-width: 100%;
+  padding: 8px;
+  border: 1px solid #c5ccd3;
+  box-sizing: border-box;
+}
+
+.formulaire button,
+button.bouton,
+.bouton-supprimer {
+  border: 0;
+  color: white;
+  background-color: #e67e22;
+  font-weight: bold;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.bouton-supprimer {
+  background-color: #b03a2e;
+  padding: 5px 12px;
+}
+
+.erreur {
+  color: #b03a2e;
+  font-weight: bold;
+}
+
+.slogan {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+table {
+  width: 100%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: white;
+}
+
+th {
+  color: white;
+  background: #7048e8;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #c5ccd3;
+  text-align: left;
+}

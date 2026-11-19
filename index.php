@@ -14,7 +14,8 @@
     <a href="services.php">Services</a>
     <a href="pages/informations/actualites.html">Actualités</a>
     <a href="pages/informations/contact.php">Contact</a>
-    <a href="pages/compte/connexion.html">Connexion</a>
+    <a href="entreprise.php">Entreprise</a>
+    <a href="pages/compte/connexion.php">Connexion</a>
   </div>
   <div class="entete" id="haut">
     <h1>On s’occupe de votre informatique.</h1>

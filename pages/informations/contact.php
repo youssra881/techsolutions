@@ -13,8 +13,9 @@
     </a>
     <a href="../../services.php">Services</a>
     <a href="actualites.html">Actualités</a>
+    <a href="../../entreprise.php">Entreprise</a>
     <a href="contact.php">Contact</a>
-    <a href="../compte/connexion.html">Connexion</a>
+    <a href="../compte/connexion.php">Connexion</a>
   </div>
   <div class="entete">
     <h1>Nous contacter</h1>
