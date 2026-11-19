@@ -1,3 +1,7 @@
+<?php
+require "inc/bdd.php";
+$techniciens = $pdo->query("SELECT prenom, nom FROM utilisateurs WHERE service = 'Technique' ORDER BY nom")->fetchAll();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -48,7 +52,3 @@
   </div>
 </body>
 </html>
-<?php
-require "inc/bdd.php";
-$techniciens = $pdo->query("SELECT prenom, nom FROM utilisateurs WHERE service = 'Technique' ORDER BY nom")->fetchAll();
-?>
