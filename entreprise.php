@@ -1,5 +1,7 @@
 <?php
 require "inc/bdd.php";
+
+// ORDER BY nom trie les salariés par ordre alphabétique.
 $requete = $pdo->query("SELECT prenom, nom, service FROM utilisateurs ORDER BY nom");
 $equipe = $requete->fetchAll();
 ?>

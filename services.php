@@ -1,5 +1,7 @@
 <?php
 require "inc/bdd.php";
+
+// Cette requête ne garde que les salariés du service Technique.
 $techniciens = $pdo->query("SELECT prenom, nom FROM utilisateurs WHERE service = 'Technique' ORDER BY nom")->fetchAll();
 ?>
 <!DOCTYPE html>

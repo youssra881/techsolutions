@@ -7,14 +7,28 @@ body {
 }
 
 .navigation {
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   padding: 14px;
   background: white;
+  box-shadow: 0 2px 12px rgba(37, 40, 58, 0.08);
 }
 
 .navigation a {
   display: inline-block;
-  margin: 0 12px;
+  margin: 0 4px;
+  font-weight: bold;
+}
+
+.navigation a:hover,
+.navigation a:focus-visible,
+a:hover,
+a:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 a {
@@ -48,6 +62,7 @@ h2 { color: #7048e8; }
   border-radius: 10px;
   border-top: 4px solid #7048e8;
   background: white;
+  box-shadow: 0 3px 12px rgba(112, 72, 232, 0.08);
 }
 
 .carte h2 { margin-top: 0; }
@@ -77,11 +92,19 @@ label {
 }
 
 input, textarea {
-  width: 95%;
+  width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font: inherit;
+  box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #7048e8;
+  outline: 3px solid rgba(112, 72, 232, 0.18);
 }
 
 form .bouton { color: white; background: #7048e8; }
@@ -143,6 +166,12 @@ table {
   background: white;
 }
 
+table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
 th {
   color: white;
   background: #7048e8;
@@ -161,4 +190,39 @@ td {
   padding: 20px 40px;
   border-radius: 10px;
   background: white;
+}
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 650px) {
+  .navigation {
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .navigation .logo {
+    width: 140px;
+  }
+
+  .entete {
+    padding: 40px 16px;
+  }
+
+  .bouton {
+    margin: 5px 2px;
+  }
+
+  .section,
+  main {
+    padding: 20px 12px;
+  }
+
+  .formulaire {
+    width: auto;
+  }
 }

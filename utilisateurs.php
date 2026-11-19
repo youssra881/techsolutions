@@ -1,11 +1,23 @@
 <?php
 session_start();
-require "inc/verif-admin.php";
 require "inc/bdd.php";
+
+// Connexion obligatoire.
+if (!isset($_SESSION["id"])) {
+    header("Location: pages/compte/connexion.php");
+    exit;
+}
+
+// Seul l'administrateur peut ouvrir cette page.
+if ($_SESSION["role"] != "admin") {
+    header("Location: espace.php");
+    exit;
+}
 
 $requete = $pdo->query("SELECT id, prenom, nom, service, role FROM utilisateurs ORDER BY nom");
 $utilisateurs = $requete->fetchAll();
-$nombreAdministrateurs = $pdo->query("SELECT COUNT(*) AS total FROM utilisateurs WHERE role = 'admin'")->fetchColumn();
+$requeteAdmin = $pdo->query("SELECT id FROM utilisateurs WHERE role = 'admin'");
+$administrateurs = $requeteAdmin->fetchAll();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,7 +39,7 @@ $nombreAdministrateurs = $pdo->query("SELECT COUNT(*) AS total FROM utilisateurs
     <h1>Gestion des utilisateurs</h1>
     <p class="slogan">Les comptes du personnel</p>
     <p>Nombre de comptes : <?php echo count($utilisateurs); ?></p>
-    <p>Dont <?php echo (int) $nombreAdministrateurs; ?> administrateur</p>
+    <p>Dont <?php echo count($administrateurs); ?> administrateur</p>
     <table>
       <tr>
         <th>Prénom</th>

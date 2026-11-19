@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fiche - Connexion TechSolutions</title>
+  <style>
+    body {
+      margin: 0;
+      color: #25283a;
+      background: #f7f7fb;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 35px 20px;
+      color: white;
+      background: #7048e8;
+      text-align: center;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+
+    section,
+    aside {
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 10px;
+      border-top: 4px solid #7048e8;
+      background: white;
+    }
+
+    h2 {
+      color: #7048e8;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+    }
+
+    th {
+      color: white;
+      background: #7048e8;
+    }
+
+    th,
+    td {
+      padding: 10px;
+      border: 1px solid #c5ccd3;
+      text-align: left;
+    }
+
+    code {
+      color: #7048e8;
+      font-size: 1em;
+      font-weight: bold;
+    }
+
+    a {
+      color: #7048e8;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    footer {
+      margin-top: 30px;
+      padding: 15px;
+      border-top: 4px solid #7048e8;
+      background: white;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Fiche de connexion TechSolutions</h1>
+    <p>Comptes simples pour tester le site</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Connexion administrateur</h2>
+      <p><strong>Identifiant :</strong> <code>mdurand</code></p>
+      <p><strong>Mot de passe :</strong> <code>Admin2026</code></p>
+      <p>Cette personne peut gérer les utilisateurs : voir la liste, ajouter un compte ou supprimer un compte.</p>
+    </section>
+
+    <section>
+      <h2>Connexion salarié</h2>
+      <p><strong>Identifiant :</strong> <code>jmoreau</code></p>
+      <p><strong>Mot de passe :</strong> <code>Salarie2026</code></p>
+      <p>Cette personne arrive sur son espace personnel : Mon espace.</p>
+    </section>
+
+    <section>
+      <h2>Tous les comptes disponibles</h2>
+      <table>
+        <tr>
+          <th>Identifiant</th>
+          <th>Mot de passe</th>
+          <th>Rôle</th>
+        </tr>
+        <tr>
+          <td>mdurand</td>
+          <td>Admin2026</td>
+          <td>Administrateur</td>
+        </tr>
+        <tr>
+          <td>jmoreau</td>
+          <td>Salarie2026</td>
+          <td>Salarié</td>
+        </tr>
+        <tr>
+          <td>kbenali</td>
+          <td>Salarie2026</td>
+          <td>Salarié</td>
+        </tr>
+        <tr>
+          <td>lpetit</td>
+          <td>Salarie2026</td>
+          <td>Salarié</td>
+        </tr>
+        <tr>
+          <td>sgarcia</td>
+          <td>Salarie2026</td>
+          <td>Salarié</td>
+        </tr>
+        <tr>
+          <td>tleroy</td>
+          <td>Salarie2026</td>
+          <td>Salarié</td>
+        </tr>
+        <tr>
+          <td>cfontaine</td>
+          <td>Salarie2026</td>
+          <td>Salarié</td>
+        </tr>
+        <tr>
+          <td>nrousseau</td>
+          <td>Salarie2026</td>
+          <td>Salarié</td>
+        </tr>
+      </table>
+    </section>
+
+    <aside>
+      <h2>Comment connaître le mot de passe ?</h2>
+      <p>Le mot de passe n'est pas retrouvé dans phpMyAdmin. La base contient une empreinte, par exemple <code>$2y$10$...</code>.</p>
+      <p>PHP utilise <code>password_verify()</code> pour comparer le mot de passe tapé avec cette empreinte.</p>
+      <p>Résultat vrai : la connexion fonctionne. Résultat faux : le site affiche « Identifiant ou mot de passe incorrect ».</p>
+    </aside>
+
+    <aside>
+      <h2>Pourquoi ces mots de passe ?</h2>
+      <p>Ce sont les mots de passe de test donnés dans les consignes du cours :</p>
+      <ul>
+        <li><code>Admin2026</code> pour Martin Durand.</li>
+        <li><code>Salarie2026</code> pour tous les autres comptes.</li>
+      </ul>
+      <p>Dans phpMyAdmin, ils ne sont pas écrits en clair : seuls les résultats d'<code>password_hash()</code> sont enregistrés.</p>
+    </aside>
+
+    <section>
+      <h2>Comment se connecter</h2>
+      <ol>
+        <li>Ouvre <a href="http://localhost/TechSolutions/pages/compte/connexion.php">la page de connexion</a>.</li>
+        <li>Écris un identifiant dans le premier champ.</li>
+        <li>Écris le mot de passe dans le second champ.</li>
+        <li>Clique sur <strong>Se connecter</strong>.</li>
+      </ol>
+      <p>Pour tester une autre personne, clique d'abord sur <strong>Se déconnecter</strong> si une session est déjà ouverte.</p>
+    </section>
+  </main>
+
+  <footer>
+    TechSolutions - Fiche de test
+  </footer>
+</body>
+</html>

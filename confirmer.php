@@ -1,7 +1,17 @@
 <?php
 session_start();
-require "inc/verif-admin.php";
 require "inc/bdd.php";
+
+// Protection côté serveur.
+if (!isset($_SESSION["id"])) {
+    header("Location: pages/compte/connexion.php");
+    exit;
+}
+
+if ($_SESSION["role"] != "admin") {
+    header("Location: espace.php");
+    exit;
+}
 
 $id = isset($_GET["id"]) ? (int) $_GET["id"] : 0;
 $requete = $pdo->prepare("SELECT prenom, nom FROM utilisateurs WHERE id = ?");

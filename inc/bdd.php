@@ -1,7 +1,15 @@
 <?php
-// Connexion à la base de données techsolutions
-// XAMPP (Windows, Linux) : utilisateur root, mot de passe vide
-$pdo = new PDO("mysql:host=localhost;dbname=techsolutions;charset=utf8mb4", "root", "");
+// 1. PDO permet à PHP de parler à MySQL.
+// 2. $pdo est la connexion utilisée sur toutes les pages du site.
+$pdo = new PDO(
+    "mysql:host=localhost;dbname=techsolutions;charset=utf8mb4",
+    "root",
+    "",
+    [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    ]
+);
 
-// Les lignes lues dans la base seront rangées avec le nom des colonnes
-$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+// Les résultats seront rangés avec les noms des colonnes :
+// exemple -> $utilisateur["prenom"]

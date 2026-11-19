@@ -6,6 +6,11 @@ if (!isset($_SESSION["id"])) {
     exit;
 }
 
+if ($_SESSION["role"] != "admin") {
+    header("Location: espace.php");
+    exit;
+}
+
 require "inc/bdd.php";
 $requete = $pdo->query("SELECT identifiant, prenom, nom, service, role FROM utilisateurs ORDER BY service, nom");
 $utilisateurs = $requete->fetchAll();

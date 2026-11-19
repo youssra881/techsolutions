@@ -1,3 +1,29 @@
+<?php
+require "../../inc/bdd.php";
+
+$messageEnvoye = false;
+$erreur = "";
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $nom = trim($_POST["nom"] ?? "");
+    $email = trim($_POST["email"] ?? "");
+    $message = trim($_POST["message"] ?? "");
+
+    if ($nom === "" || $email === "" || $message === "") {
+        $erreur = "Veuillez remplir tous les champs.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $erreur = "Veuillez saisir une adresse e-mail valide.";
+    } elseif (strlen($nom) > 100 || strlen($email) > 150 || strlen($message) > 2000) {
+        $erreur = "Les informations saisies sont trop longues.";
+    } else {
+        $requete = $pdo->prepare(
+            "INSERT INTO messages (nom, email, message) VALUES (?, ?, ?)"
+        );
+        $requete->execute([$nom, $email, $message]);
+        $messageEnvoye = true;
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -27,14 +53,22 @@
     <p>E-mail :
       <a href="mailto:contact@techsolutions.fr">contact@techsolutions.fr</a>
     </p>
-    <form class="carte">
+    <?php if ($messageEnvoye) { ?>
+      <p class="slogan">Votre message a bien été envoyé. Merci pour votre message.</p>
+    <?php } ?>
+
+    <?php if ($erreur !== "") { ?>
+      <p class="erreur"><?php echo htmlspecialchars($erreur); ?></p>
+    <?php } ?>
+
+    <form class="carte" action="contact.php" method="post">
       <label for="nom">Nom</label>
-      <input id="nom" type="text">
+      <input id="nom" name="nom" type="text" maxlength="100" required value="<?php echo htmlspecialchars($_POST["nom"] ?? ""); ?>">
       <label for="email">Adresse e-mail</label>
-      <input id="email" type="email">
+      <input id="email" name="email" type="email" maxlength="150" required value="<?php echo htmlspecialchars($_POST["email"] ?? ""); ?>">
       <label for="message">Votre question ou demande de devis</label>
-      <textarea id="message" rows="4"></textarea>
-      <button class="bouton" type="button">Envoyer un message</button>
+      <textarea id="message" name="message" rows="4" maxlength="2000" required><?php echo htmlspecialchars($_POST["message"] ?? ""); ?></textarea>
+      <button class="bouton" type="submit">Envoyer un message</button>
     </form>
   </div>
   <div class="pied">
