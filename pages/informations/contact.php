@@ -11,7 +11,7 @@
     <a href="../../index.php">
       <img src="../../images/logo.png" alt="TechSolutions" class="logo">
     </a>
-    <a href="services.php">Services</a>
+    <a href="../../services.php">Services</a>
     <a href="actualites.html">Actualités</a>
     <a href="contact.php">Contact</a>
     <a href="../compte/connexion.html">Connexion</a>
