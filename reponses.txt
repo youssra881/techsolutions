@@ -1,0 +1,30 @@
+TP 11
+
+1. Erreurs provoquées :
+   - [1049] Base de données inconnue : dbname est mal écrit ou la base techsolutions n'existe pas.
+   - [1045] Accès refusé pour l'utilisateur root : le mot de passe MySQL est incorrect.
+   - [2002] Connexion impossible : MySQL n'est pas démarré ou le serveur est indisponible.
+
+2. Dans foreach ($utilisateurs as $u), $u contient un compte complet au premier tour, puis le compte suivant au tour suivant. Le nombre de tours est décidé par le nombre de lignes renvoyées dans $utilisateurs.
+
+3. Le code source obtenu par le navigateur ne contient pas foreach : PHP a exécuté la boucle côté serveur pour produire les lignes <tr> finales.
+
+4. La colonne mot_de_passe n'est pas demandée afin de ne pas afficher ou manipuler inutilement une donnée sensible.
+
+TP 12
+
+1. Avec GET, identifiant et mot de passe apparaissent dans la barre d'adresse. C'est dangereux : ils peuvent être conservés dans l'historique, les favoris ou les journaux du serveur.
+
+2. Sans name="motdepasse", PHP produit une erreur indiquant que la clé motdepasse est absente de $_POST, car seul un champ avec name est envoyé.
+
+3. La comparaison directe au mot de passe ne fonctionne pas : le mot enregistré dans la base est une empreinte créée par password_hash, pas le mot de passe en clair.
+
+4. L'identifiant JMOREAU est accepté dans le même test que jmoreau si la colonne utilise un interclassement _ci : la recherche est insensible à la casse.
+
+TP 13
+
+1. Le cookie de session contient l'identifiant du ticket de session PHP, pas le prénom ni les données personnelles de l'utilisateur.
+
+2. Le exit arrête immédiatement le script après la redirection. Sans exit, le reste de la page protégée pourrait être exécuté et envoyé au navigateur.
+
+3. Le lien visible pour l'administrateur améliore l'interface, mais ne protège pas la page : il faut aussi vérifier le rôle dans utilisateurs.php sur le serveur.
