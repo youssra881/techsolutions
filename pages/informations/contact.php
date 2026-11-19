@@ -4,17 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact | TechSolutions</title>
-  <link rel="stylesheet" href="css.css">
+  <link rel="stylesheet" href="../../css/css.css">
 </head>
 <body>
   <div class="navigation">
-    <a href="index.sitetechsolution.html">
-      <img src="images/logo.png" alt="TechSolutions" class="logo">
+    <a href="../../index.php">
+      <img src="../../images/logo.png" alt="TechSolutions" class="logo">
     </a>
-    <a href="services.html">Services</a>
+    <a href="services.php">Services</a>
     <a href="actualites.html">Actualités</a>
-    <a href="contact.html">Contact</a>
-    <a href="connexion.html">Connexion</a>
+    <a href="contact.php">Contact</a>
+    <a href="../compte/connexion.html">Connexion</a>
   </div>
   <div class="entete">
     <h1>Nous contacter</h1>
@@ -38,7 +38,7 @@
   </div>
   <div class="pied">
     <p>© 2026 TechSolutions ·
-      <a href="index.sitetechsolution.html">Retour à l’accueil</a>
+      <a href="../../index.php">Retour à l’accueil</a>
     </p>
   </div>
 </body>
