@@ -1,0 +1,200 @@
+/* Style du site TechSolutions (code organisé comme celui de mon portfolio) */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f7f7fb;
+  color: #25283a;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Menu en haut */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 8%;
+  background: white;
+  border-bottom: 4px solid #7048e8;
+}
+
+.logo img {
+  display: block;
+  width: 180px;
+  height: auto;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+nav a {
+  padding: 7px 10px;
+  border-radius: 4px;
+  color: #25283a;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a.actif {
+  background: #7048e8;
+  color: white;
+}
+
+/* Contenu */
+main {
+  width: 82%;
+  max-width: 950px;
+  margin: 40px auto;
+}
+
+a { color: #7048e8; }
+
+h1,
+h2,
+h3 {
+  color: #7048e8;
+  font-family: Arial, sans-serif;
+}
+
+h1 { font-size: 38px; }
+
+h2 {
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #c5ccd3;
+}
+
+/* Titre et texte d'introduction en haut de chaque page */
+.entete {
+  width: 82%;
+  max-width: 950px;
+  margin: 40px auto 0;
+}
+
+.entete h1 { margin-bottom: 8px; }
+.entete p { color: #5b6070; font-size: 18px; margin-top: 0; }
+.entete + main { margin-top: 25px; }
+
+.slogan {
+  color: #7048e8;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Cartes */
+.carte {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #c5ccd3;
+  border-radius: 8px;
+  background: white;
+}
+
+.carte h2,
+.carte h3 { margin-top: 0; }
+
+/* Boutons */
+.bouton {
+  display: inline-block;
+  margin: 4px 4px 4px 0;
+  padding: 10px 18px;
+  border: 1px solid #7048e8;
+  border-radius: 5px;
+  background: #7048e8;
+  color: white;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bouton:hover { background: #5a38c0; }
+
+.bouton.secondaire {
+  background: white;
+  color: #7048e8;
+}
+
+.bouton-supprimer {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 5px;
+  background: #b03a2e;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Messages */
+.erreur { color: #b03a2e; font-weight: bold; }
+.succes { color: #1e8449; font-weight: bold; }
+
+/* Formulaires */
+form {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+label {
+  display: block;
+  margin-top: 12px;
+  font-weight: bold;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #c5ccd3;
+  border-radius: 5px;
+  font: inherit;
+}
+
+form .bouton { margin-top: 16px; }
+
+/* Tableaux */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+th,
+td {
+  padding: 10px;
+  border: 1px solid #c5ccd3;
+  text-align: left;
+}
+
+th {
+  background: #7048e8;
+  color: white;
+}
+
+/* Bas de page */
+footer {
+  padding: 18px;
+  border-top: 1px solid #c5ccd3;
+  background: white;
+  color: #5b6070;
+  text-align: center;
+}
+
+@media (max-width: 750px) {
+  header { flex-direction: column; align-items: flex-start; }
+  main, .entete { width: 90%; }
+}
+
+/* Le bouton Supprimer dans un tableau ne doit pas agrandir la ligne */
+td form {
+  max-width: none;
+  margin: 0;
+}
