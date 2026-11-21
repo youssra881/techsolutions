@@ -1,33 +1,25 @@
 <?php
 session_start();
-
-// Cette page est réservée aux personnes connectées.
-if (!isset($_SESSION["id"])) {
-    header("Location: pages/compte/connexion.php");
-    exit;
-}
+include "inc/verif-connecte.php";   // page réservée aux personnes connectées
+include "inc/infos.php";
+$page = "espace";
+$titre = "Mon espace";
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <title>TechSolutions : mon espace</title>
-  <link rel="stylesheet" href="css/css.css">
-</head>
-<body>
-  <nav class="navigation">
-    <a href="index.php"><img src="images/logo.png" alt="TechSolutions" class="logo"></a>
-  </nav>
-  <main>
+<?php include "inc/haut.php"; ?>
+  <div class="entete">
     <h1>Mon espace</h1>
+    <p>Votre espace salarié TechSolutions.</p>
+  </div>
+  <main class="section">
     <p class="slogan">Bonjour <?php echo htmlspecialchars($_SESSION["prenom"] . " " . $_SESSION["nom"]); ?> !</p>
     <p>Service : <?php echo htmlspecialchars($_SESSION["service"]); ?></p>
     <p>Rôle : <?php echo htmlspecialchars($_SESSION["role"]); ?></p>
     <?php if ($_SESSION["role"] == "admin") { ?>
+      <p>Vous êtes l’administrateur du site.</p>
       <p><a href="utilisateurs.php">Gérer les utilisateurs</a></p>
-      <p><a href="annuaire.php">Voir l'annuaire</a></p>
+      <p><a href="messages.php">Lire les messages reçus</a></p>
     <?php } ?>
-    <p><a href="deconnexion.php">Se déconnecter</a></p>
+    <p><a href="donnees.php">Voir et modifier mes données</a></p>
+    <p><a class="bouton" href="deconnexion.php">Se déconnecter</a></p>
   </main>
-</body>
-</html>
+<?php include "inc/pied.php"; ?>
