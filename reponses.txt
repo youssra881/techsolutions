@@ -3,9 +3,9 @@ RÉPONSES - SITE TECHSOLUTIONS (Youssra, BTS SIO SLAM)
 
 MISE EN ROUTE
 -------------
-Serveur : XAMPP sous Windows. Dossier du site : C:\xampp\htdocs\exemple
+Serveur : XAMPP sous Windows. Dossier du site : C:\xampp\htdocs\TechSolutions exemple
 Démarrage : XAMPP Control Panel > Start pour Apache et pour MySQL (deux lignes vertes).
-Adresse du site : http://localhost/exemple/
+Adresse du site : http://localhost/TechSolutions%20exemple/
 Base de données : http://localhost/phpmyadmin > Importer > sql/techsolutions.sql
 
 Q1. Quelle différence entre l'adresse par le menu et par double-clic ?
