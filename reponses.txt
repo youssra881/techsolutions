@@ -1,0 +1,139 @@
+RÉPONSES - SITE TECHSOLUTIONS (Youssra, BTS SIO SLAM)
+=====================================================
+
+MISE EN ROUTE
+-------------
+Serveur : XAMPP sous Windows. Dossier du site : C:\xampp\htdocs\exemple
+Démarrage : XAMPP Control Panel > Start pour Apache et pour MySQL (deux lignes vertes).
+Adresse du site : http://localhost/exemple/
+Base de données : http://localhost/phpmyadmin > Importer > sql/techsolutions.sql
+
+Q1. Quelle différence entre l'adresse par le menu et par double-clic ?
+    Par le serveur, l'adresse commence par http://localhost/ : Apache reçoit la demande
+    et exécute le PHP. Par double-clic, elle commence par file:/// : le navigateur lit
+    simplement le fichier, le serveur n'intervient pas et le PHP n'est pas exécuté.
+
+Q3. Peut-on publier ce site sur GitHub Pages ?
+    Non. GitHub Pages ne sait pas exécuter le PHP : il ne publie que du HTML, du CSS
+    et du JavaScript. Il n'y a pas non plus de MySQL.
+
+
+TP 9 - VARIABLES ET INCLUDE
+---------------------------
+Q1. L'instruction echo n'apparaît pas dans le code source de la page : on n'y voit que
+    son résultat. Avec un double-clic, le PHP n'est pas exécuté (voir Q1 ci-dessus).
+
+Q2. Le code source contient le menu complet, pas la ligne include : PHP assemble la page
+    sur le serveur avant de l'envoyer au navigateur.
+
+Q3. Pour ajouter une page au menu, on ne modifie qu'un seul fichier : inc/menu.php.
+
+Q4. echo $telephone;   affiche le contenu de la variable (05 55 00 00 00).
+    echo "telephone";  affiche le mot « telephone ».
+    Sans le $, PHP ne lit pas la variable : il affiche le texte tel quel.
+
+Q5. Une seule ligne change ($tva) : les prix TTC sont calculés à partir de cette variable
+    (TTC = HT x (1 + TVA)), donc toutes les pages suivent.
+
+Défi. Une année de formule Sérénité coûte 2160 € TTC.
+    Calcul : 150 € HT x 12 mois x 1,2 = 2160 € TTC.
+
+
+TP 10 - BASE DE DONNÉES ET SQL
+------------------------------
+Q1. AUTO_INCREMENT donne automatiquement un numéro unique à chaque nouvelle ligne.
+    Sans lui, il faudrait choisir chaque id à la main, avec un risque de doublon.
+
+Q2. Non, les empreintes sont différentes même pour deux mots de passe identiques :
+    password_hash ajoute un « sel » aléatoire. On ne peut donc pas voir que deux
+    personnes ont le même mot de passe.
+
+Q3. Emma reçoit l'id 9 : AUTO_INCREMENT ne réutilise pas les numéros déjà supprimés.
+
+Q4. DELETE FROM utilisateurs;  (sans WHERE) supprime tous les comptes.
+    On répare en réimportant sql/techsolutions.sql : il efface la base puis la recrée avec
+    les 8 comptes de départ (ou on restaure une sauvegarde).
+
+Requêtes et nombre de lignes obtenues :
+  1. SELECT * FROM utilisateurs;                                                        -> 8
+  2. SELECT prenom, nom FROM utilisateurs;                                              -> 8
+  3. SELECT prenom, nom FROM utilisateurs WHERE service = 'Technique';                  -> 3
+  4. SELECT id, prenom, nom FROM utilisateurs ORDER BY nom;                             -> 8
+  5. SELECT * FROM utilisateurs WHERE identifiant = 'kbenali';                          -> 1
+  6. SELECT prenom, nom, service FROM utilisateurs ORDER BY service, nom;               -> 8
+  7. SELECT prenom, nom FROM utilisateurs WHERE role != 'admin';                        -> 7
+  8. SELECT prenom, nom FROM utilisateurs WHERE service = 'Commercial' ORDER BY prenom; -> 2
+
+
+TP 11 - PHP ET MYSQL (PDO)
+--------------------------
+Q1. Trois erreurs de connexion possibles (inc/bdd.php) :
+    - dbname=techsolution (faute de frappe)  -> [1049] base de données inconnue
+    - mauvais mot de passe                   -> [1045] accès refusé
+    - MySQL arrêté                           -> [2002] connexion impossible
+
+Q2. $u contient une ligne de la base : au 1er tour le 1er salarié, au 2e tour le 2e, etc.
+    Le nombre de tours de foreach est égal au nombre de lignes de $utilisateurs.
+
+Q3. Le code source du navigateur contient autant de <tr> que de comptes (plus la ligne
+    d'en-tête) et aucun foreach : PHP a exécuté la boucle avant l'envoi de la page.
+
+Q4. On ne demande que les colonnes utiles (prénom, nom, service...). Le mot de passe
+    n'a rien à faire dans la page : moins on lit de données, moins on risque de les afficher.
+
+
+TP 12 - FORMULAIRES ET CONNEXION
+--------------------------------
+Q1. Avec GET, l'identifiant et le mot de passe apparaîtraient dans l'adresse. C'est
+    inacceptable : ils resteraient dans l'historique et les journaux du serveur, et
+    seraient visibles par quelqu'un qui regarde l'écran. On utilise POST.
+
+Q2. Sans attribut name, le navigateur n'envoie pas le champ. PHP signale alors que la clé
+    "motdepasse" n'existe pas dans $_POST.
+
+Q3. Le mot de passe est stocké sous forme d'empreinte : == comparerait le texte tapé avec
+    l'empreinte, ce qui est toujours faux. Il faut password_verify($saisi, $hash).
+
+Q4. Test 6 (JMOREAU en majuscules) : MySQL compare avec une collation insensible à la
+    casse (utf8mb4_general_ci), donc l'identifiant est trouvé et la connexion fonctionne
+    avec le bon mot de passe. Le mot de passe, lui, est sensible à la casse.
+    (À confirmer pendant ton test.)
+
+Tests :
+  1. mdurand / Admin2026     -> connexion OK (administrateur)
+  2. jmoreau / Salarie2026   -> connexion OK (salarié)
+  3, 4, 5 : mauvais identifiant ou mauvais mot de passe
+            -> « Identifiant ou mot de passe incorrect » (toujours le même message,
+               pour ne pas révéler si l'identifiant existe).
+
+Injection SQL : la requête préparée (WHERE identifiant = ?) envoie la valeur séparément
+du SQL, donc ce qui est tapé n'est jamais interprété comme du code. Si on collait
+$identifiant dans la requête, saisir ' OR '1'='1 donnerait accès au site sans mot de passe.
+
+
+TP 13 - SESSIONS ET PROTECTION DES PAGES
+----------------------------------------
+Q1. Le cookie contient seulement un numéro de session, pas le prénom. C'est comme un
+    vestiaire : le visiteur garde le ticket, le manteau reste côté serveur ($_SESSION).
+
+Q2. Sans exit après header("Location: ..."), PHP continue d'exécuter la page, qui est
+    quand même envoyée. exit est indispensable.
+
+Q3. Cacher un lien ne protège pas : on peut taper l'adresse à la main. Il faut vérifier
+    le rôle dans la page elle-même (inc/verif-admin.php).
+
+Q4. supprimer.php est accessible directement par son adresse : les contrôles sont donc
+    répétés dans la page (administrateur, identifiant valide, pas son propre compte).
+
+Q5. On stocke l'empreinte (password_hash) : si la base fuit, les mots de passe en clair
+    ne sont pas lisibles. Et password_verify ne fonctionnerait pas avec du texte clair.
+
+Recette (à cocher pendant la démonstration) :
+  [ ] 1. Les pages publiques s'affichent (Accueil, Services, Entreprise, Actualités, Contact)
+  [ ] 2. Connexion salarié (jmoreau) : Mon espace, Annuaire, Mes données
+  [ ] 3. Connexion refusée avec un mauvais mot de passe
+  [ ] 4. Un salarié qui tape utilisateurs.php est renvoyé vers son espace
+  [ ] 5. Connexion administrateur (mdurand) : menus Utilisateurs et Messages
+  [ ] 6. Ajout d'un compte, visible dans phpMyAdmin, puis suppression avec confirmation
+  [ ] 7. Message envoyé depuis Contact, lu puis supprimé dans Messages
+  [ ] 8. Mes données : changement du service et du mot de passe

@@ -1,0 +1,124 @@
+/* Style du site TechSolutions : bleu foncé et bleu roi */
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f3f6fc;
+  color: #1c2340;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Menu en haut */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 8%;
+  background: white;
+  border-bottom: 4px solid #0a1f5c;   /* bleu foncé */
+}
+
+.logo img { display: block; width: 180px; height: auto; }
+
+nav { display: flex; flex-wrap: wrap; gap: 8px; }
+
+nav a {
+  padding: 7px 12px;
+  border-radius: 4px;
+  color: #0a1f5c;
+  text-decoration: none;
+}
+
+nav a:hover,
+nav a.actif { background: #1f4fd8; color: white; }   /* bleu roi */
+
+/* Contenu */
+main,
+.entete {
+  width: 82%;
+  max-width: 950px;
+  margin: 40px auto;
+}
+
+.entete { margin-bottom: 0; }
+.entete + main { margin-top: 25px; }
+.entete p { margin-top: 0; color: #5b6486; font-size: 18px; }
+
+a { color: #1f4fd8; }
+h1, h2, h3 { color: #0a1f5c; }
+.slogan { color: #1f4fd8; font-size: 20px; font-weight: bold; }
+.petit { color: #5b6486; font-size: 14px; margin: 4px 0; }
+
+/* Cartes */
+.carte {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #cfd8ea;
+  border-radius: 8px;
+  background: white;
+}
+
+.carte h2, .carte h3 { margin-top: 0; }
+
+/* Boutons */
+.bouton,
+.bouton-supprimer {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 5px;
+  background: #1f4fd8;
+  color: white;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bouton:hover { background: #0a1f5c; }
+.bouton.secondaire { background: white; color: #1f4fd8; border: 1px solid #1f4fd8; }
+.bouton-supprimer { padding: 6px 12px; background: #b03a2e; }
+
+/* Messages */
+.erreur { color: #b03a2e; font-weight: bold; }
+.succes { color: #1e8449; font-weight: bold; }
+
+/* Formulaires */
+form { max-width: 500px; margin: 20px auto; }
+td form { max-width: none; margin: 0; }
+
+label { display: block; margin-top: 12px; font-weight: bold; }
+label.case { font-weight: normal; }
+
+input, textarea, select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #cfd8ea;
+  border-radius: 5px;
+  font: inherit;
+}
+
+input[type="checkbox"] { width: auto; }
+form .bouton { margin-top: 16px; }
+
+/* Tableaux */
+table { width: 100%; border-collapse: collapse; background: white; }
+th, td { padding: 10px; border: 1px solid #cfd8ea; text-align: left; }
+th { background: #0a1f5c; color: white; }
+
+/* Bas de page */
+footer {
+  padding: 18px;
+  background: #0a1f5c;
+  color: white;
+  text-align: center;
+}
+
+footer a { color: white; }
+
+@media (max-width: 750px) {
+  header { flex-direction: column; align-items: flex-start; }
+  main, .entete { width: 90%; }
+}
