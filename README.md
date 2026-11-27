@@ -7,15 +7,15 @@ Site vitrine dynamique de TechSolutions (HTML, CSS, PHP, MySQL), fait pour le ca
 
 **Windows**
 1. Ouvrir **XAMPP Control Panel**, cliquer sur **Start** pour **Apache** et **MySQL** (les deux lignes passent au vert).
-2. Le dossier du site doit être dans `C:\xampp\htdocs\TechSolutions exemple`.
+2. Le dossier du site doit être dans `C:\xampp\htdocs\exemple`.
 
 **Mac**
 1. Ouvrir **XAMPP**, onglet **Manage Servers**, démarrer **Apache Web Server** et **MySQL Database**.
-2. Le dossier du site doit être dans `/Applications/XAMPP/xamppfiles/htdocs/TechSolutions exemple`.
+2. Le dossier du site doit être dans `/Applications/XAMPP/xamppfiles/htdocs/exemple`.
 
 **Ensuite (Windows et Mac)**
 3. Ouvrir http://localhost/phpmyadmin, onglet **Importer**, choisir `sql/techsolutions.sql`, puis **Importer**.
-4. Ouvrir http://localhost/TechSolutions%20exemple/ (ou double-cliquer sur `Ouvrir le site (Windows).url` ou `Ouvrir le site (Mac).webloc`).
+4. Ouvrir http://localhost/exemple/ (ou double-cliquer sur `Ouvrir le site (Windows).url` ou `Ouvrir le site (Mac).webloc`).
 
 ## Les pages
 
